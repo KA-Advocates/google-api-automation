@@ -82,9 +82,11 @@ Make sure your Google Speadsheet has the following columns in this order:
 * МАРКЕРИ - Tags
 * Новогенериран YT Link - Newly generated YT Link
 
-Make sure that the names of the videos in your Google Drive are the same as their corresponding YT IDs in the Google Sreadsheet file you have. **Note that the script is going to try to upload all of them so beware if some of them are already uploaded.**
+You can change the names of the columns - that doesn't affect the script. If you change the order of the columns, make sure to change the `config/settings.yaml` file accordingly.
 
-Go to the `config/settings.yaml` file in your `google-api-automation` folder and change `last_row` to be equal to the number of rows you have in you Google Speadsheet. Change `global_privacy` to be public or private according to your needs. Feel free to change any other settings if you need to.
+Make sure that the names of the videos in your Google Drive are the same as their corresponding YT IDs in the Google Sreadsheet file you have. The script is going to try to upload only the videos that are not already uploaded to Youtube (by cheking for each row in the Google Speadsheet if it has the newly generated Youtube ID column (column H) empty). The script downloads the videos from Google Drive on your computer in a folder `video_transit_dir` inside of your `google-api-automation` folder. You can empty this folder occasionaly to clear space on your machine since once uploaded the videos are no longer needed there. Videos already downloaded from Google Drive and videos already uploaded (videos that have the newly generated Youtube ID column populated) are not downloaded again when the script is run again.
+
+Go to the `config/settings.yaml` file in your `google-api-automation` folder and change `last_row` to be equal to the number of rows you have in your Google Speadsheet. Change `global_privacy` to be public or private according to your needs. Feel free to change any other settings if you need to.
 
 * **tmp\_video\_download\_path:** "/google-api-automation/video_transit_dir/"
   <br>`Relative Path to where the videos will be downloaded before being uploaded`
@@ -121,10 +123,10 @@ Go to the `config/settings.yaml` file in your `google-api-automation` folder and
   <br>`Row number of the last non-empty row of the sheet`
 
 ## Running Script
-  Assuming that you have read project *README*, run script:
+  Assuming that you have read project *README*, run script (preferably using the *Start Command Prompt with Ruby* console):
   ```
   ruby %userprofile%/google-api-automation/src/main.rb
   ```   
 
 ## License
-This project is licensed under the GNU GENERAL PUBLIC License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GNU GENERAL PUBLIC License - see the [LICENSE](LICENSE) file for details.
