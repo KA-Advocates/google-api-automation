@@ -51,6 +51,7 @@ d_col = Help.char_to_ord(Settings.title_col) # Translated Youtube video title
 e_col = Help.char_to_ord(Settings.description_col) # Translated Youtube video description
 f_col = Help.char_to_ord(Settings.course_description_col) # Translated Youtube video course description
 g_col = Help.char_to_ord(Settings.markers_col) # Markers/Tags
+h_col = Help.char_to_ord(Settings.ka_youtube_url_col) # Newly generated Youtube video id
 
 range = Help.create_range( # Example: "Sheet1!A3:C10"
   Settings.range_starting_col,
@@ -75,7 +76,10 @@ response_range_array.each.with_index(Settings.first_row) do |row, index|
   course_description = row[f_col] # Coulmn F
   markers = row[g_col] # Column G
 
-  selected_rows_array << [index, title, description, eng_video_id, course_description, markers]
+  # Select only videos that haven't been uploaded to Youtube yet
+  if row[h_col].nil? || row[h_col].empty?
+    selected_rows_array << [index, title, description, eng_video_id, course_description, markers]
+  end
 end
 
 puts "*************************************************************************"
